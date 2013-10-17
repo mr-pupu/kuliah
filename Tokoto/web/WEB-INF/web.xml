@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <param-name>kategoriImagePath</param-name>
+        <param-value>img/kategori/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>produkImagePath</param-name>
+        <param-value>img/produk/</param-value>
+    </context-param>
+    <context-param>
+        <description>The delivery surcharge applied to all orders</description>
+        <param-name>deliverySurcharge</param-name>
+        <param-value>10000</param-value>
+    </context-param>
+    <session-config>
+        <session-timeout>5</session-timeout>
+    </session-config>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/WEB-INF/view/*</url-pattern>
+            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+        <jsp-property-group>
+            <description>JSP configuration for the admin console</description>
+            <url-pattern>/admin/index.jsp</url-pattern>
+            <url-pattern>/admin/login.jsp</url-pattern>
+            <url-pattern>/admin/error.jsp</url-pattern>
+            <include-prelude>/admin/jspf/header.jspf</include-prelude>
+            <include-coda>/admin/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+    </jsp-config>
+    <!--
+    <resource-ref>
+        <res-ref-name>jdbc/tokoto</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    -->
+    <!--
+    <security-constraint>
+        <display-name>Admin</display-name>
+        <web-resource-collection>
+            <web-resource-name>Tokoto Administration</web-resource-name>
+            <description/>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>tokotoAdmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+        <description/>
+        <role-name>tokotoAdmin</role-name>
+    </security-role>
+    -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>file</realm-name>
+        <form-login-config>
+            <form-login-page>/admin/login.jsp</form-login-page>
+            <form-error-page>/admin/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+</web-app>

@@ -1,0 +1,12 @@
+<div id="footer">
+                <br>
+                <hr id="footerDivider">
+                <p id="footerText" class="reallySmallText">
+                   
+                    <a href="<c:url value='#'/>">Contact</a>
+                    &nbsp;&nbsp;&copy;&nbsp;&nbsp;
+                    2011 Tokoto@p14</p>
+            </div>
+        </div>
+    </body>
+</html>
