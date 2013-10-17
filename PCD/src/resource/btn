@@ -1,0 +1,18 @@
+	panelImage.setLayout (cardImage);
+							panelImage.setBorder (compound);
+							panelImage2.setLayout (new GridLayout (1, 2, 10, 10));
+							panelImage2.setBorder (compound);
+								panelImageKiri.setBackground (test, "/resource/fish.jpg");
+								panelImageKiri.setBorder (raise);
+							panelImage2.add(panelImageKiri);
+							
+								panelImageKanan.setBorder (lower);
+							panelImage2.add(panelImageKanan);
+						panelImage.add(panelImage2,"2");
+						
+							panelImage3.setLayout (new GridLayout ());
+							panelImage3.add (panelImageKiri);
+								panelImageTengah.setBorder (compound);
+							panelImage3.add (panelImageTengah);
+							panelImage3.add (panelImageKanan);
+						panelImage.add(panelImage3,"3");
