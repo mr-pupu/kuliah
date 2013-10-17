@@ -1,0 +1,19 @@
+/* 
+    Document   : component
+    Created on : Jul 8, 2012, 7:16:09 PM
+    Author     : ziez
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+}

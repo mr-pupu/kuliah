@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="StatusProdukCreateDialogWidget" id="StatusProdukCreateDialogWidgetId" 
+                  header="#{bundle.CreateStatusProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="StatusProdukCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateStatusProdukLabel_idStatusProduk}" 
+                                   for="idStatusProdukCreate" />
+                    <p:inputText id="idStatusProdukCreate"
+                                 value="#{statusProdukController.selected.idStatusProduk}"
+                                 title="#{bundle.CreateStatusProdukTitle_idStatusProduk}" 
+                                 required="true" requiredMessage="#{bundle.CreateStatusProdukRequiredMessage_idStatusProduk}"/>
+                    <h:outputLabel value="#{bundle.CreateStatusProdukLabel_namaStatusProduk}" 
+                                   for="namaStatusProdukCreate" />
+                    <p:inputText id="namaStatusProdukCreate"
+                                 value="#{statusProdukController.selected.namaStatusProduk}"
+                                 title="#{bundle.CreateStatusProdukTitle_namaStatusProduk}" 
+                                 />
+
+
+                    <p:commandButton value="#{bundle.CreateStatusProdukSaveLink}" icon="ui-icon-plus"
+                                     action="#{statusProdukController.create()}"
+                                     update=":messageGrowl :StatusProdukForm:StatusProdukTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, StatusProdukCreateDialogWidget, 'StatusProdukCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{statusProdukController.reset()}"
+                                     onclick="StatusProdukCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

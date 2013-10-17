@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="ProdukCreateDialogWidget" id="ProdukCreateDialogWidgetId" 
+                  header="#{bundle.CreateProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="ProdukCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_idProduk}" 
+                                   for="idProdukCreate" />
+                    <p:inputText id="idProdukCreate"
+                                 value="#{produkController.selected.idProduk}"
+                                 title="#{bundle.CreateProdukTitle_idProduk}" 
+                                 required="true" requiredMessage="#{bundle.CreateProdukRequiredMessage_idProduk}"/>
+                    
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_namaProduk}" 
+                                   for="namaProdukCreate" />
+                    <p:inputText id="namaProdukCreate"
+                                 value="#{produkController.selected.namaProduk}"
+                                 title="#{bundle.CreateProdukTitle_namaProduk}" 
+                                 required="true" requiredMessage="#{bundle.CreateProdukRequiredMessage_namaProduk}"/>
+                   
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_hargaProduk}" 
+                                   for="hargaProdukCreate" />
+                    <p:inputText id="hargaProdukCreate"
+                                 value="#{produkController.selected.hargaProduk}"
+                                 title="#{bundle.CreateProdukTitle_hargaProduk}" 
+                                 required="true" requiredMessage="#{bundle.CreateProdukRequiredMessage_hargaProduk}"/>
+                    
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_satuanProduk}" 
+                                   for="satuanProdukCreate" />
+                    <p:inputText id="satuanProdukCreate"
+                                 value="#{produkController.selected.satuanProduk}"
+                                 title="#{bundle.CreateProdukTitle_satuanProduk}" 
+                                 />
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_imageProduk}" 
+                                   for="imageProdukCreate" />
+                    <p:inputText id="imageProdukCreate"
+                                 value="#{produkController.selected.imageProduk}"
+                                 title="#{bundle.CreateProdukTitle_imageProduk}" 
+                                 />
+                    
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_idStatusProduk}" 
+                                   for="idStatusProdukCreate" />
+                    <p:selectOneMenu effect="fade" id="idStatusProdukCreate" 
+                                     value="#{produkController.selected.idStatusProduk}" 
+                                     title="#{bundle.CreateProdukTitle_idStatusProduk}" 
+                                     >
+                        <f:selectItem itemLabel="Select Produk" itemValue="" />
+                        <f:selectItems value="#{statusProdukController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel value="#{bundle.CreateProdukLabel_idKategoriProduk}" 
+                                   for="idKategoriProdukCreate" />
+                    <p:selectOneMenu effect="fade" id="idKategoriProdukCreate" 
+                                     value="#{produkController.selected.idKategoriProduk}" 
+                                     title="#{bundle.CreateProdukTitle_idKategoriProduk}" 
+                                     required="true" requiredMessage="#{bundle.CreateProdukRequiredMessage_idKategoriProduk}">
+                        <f:selectItem itemLabel="Select Produk" itemValue="" />
+                        <f:selectItems value="#{kategoriProdukController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:commandButton value="#{bundle.CreateProdukSaveLink}" icon="ui-icon-plus"
+                                     action="#{produkController.create()}"
+                                     update=":messageGrowl"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, ProdukCreateDialogWidget, 'ProdukCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{produkController.reset()}"
+                                     onclick="ProdukCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

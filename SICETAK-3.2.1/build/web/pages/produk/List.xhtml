@@ -1,0 +1,137 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="ProdukForm">
+            <p:dataTable value="#{produkController.items}" var="item" id="ProdukTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="ProdukRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="ProdukWidget" emptyMessage="#{bundle.ListProdukEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListProdukTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{ProdukRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idProduk}"
+                          filterBy="##{item.idProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_idProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.namaProduk}"
+                          filterBy="##{item.namaProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_namaProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.namaProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.hargaProduk}"
+                          filterBy="##{item.hargaProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_hargaProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.hargaProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.satuanProduk}"
+                          filterBy="##{item.satuanProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_satuanProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.satuanProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.imageProduk}"
+                          filterBy="##{item.imageProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_imageProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.imageProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idStatusProduk}"
+                          filterBy="##{item.idStatusProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_idStatusProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idStatusProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idKategoriProduk}"
+                          filterBy="##{item.idKategoriProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProdukTitle_idKategoriProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idKategoriProduk}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="ProdukViewDialogWidget.show();" update=":ProdukViewDialogForm">
+                        <f:setPropertyActionListener target="#{produkController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="ProdukUpdateDialogWidget.show();" update=":ProdukUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{produkController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="ProdukDeleteDialogWidget.show();" update=":ProdukDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{produkController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{produkController.items.rowCount} Produk.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListProdukCreateLink}" icon="ui-icon-plus" update=":ProdukCreateDialogForm"
+                             actionListener="#{produkController.reset()}" onclick="ProdukCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/produk/View.xhtml"/>
+        <ui:include src="/pages/produk/Edit.xhtml"/>
+        <ui:include src="/pages/produk/Delete.xhtml"/>
+        <ui:include src="/pages/produk/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

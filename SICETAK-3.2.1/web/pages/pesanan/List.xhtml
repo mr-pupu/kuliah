@@ -1,0 +1,131 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="PesananForm">
+            <p:dataTable value="#{pesananController.items}" var="item" id="PesananTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="PesananRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="PesananWidget" emptyMessage="#{bundle.ListPesananEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListPesananTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{PesananRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPesanan}"
+                          filterBy="##{item.idPesanan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananTitle_idPesanan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPesanan}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.tglPesan}"
+                          filterBy="##{item.tglPesan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananTitle_tglPesan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tglPesan}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column sortBy="#{item.tglJadi}"
+                          filterBy="##{item.tglJadi}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananTitle_tglJadi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tglJadi}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column sortBy="#{item.idStatusPesanan.namaStatusPesanan}"
+                          filterBy="##{item.idStatusPesanan.namaStatusPesanan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananTitle_idStatusPesanan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idStatusPesanan.namaStatusPesanan}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPelanggan.namaPelanggan}"
+                          filterBy="##{item.idPelanggan.namaPelanggan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananTitle_idPelanggan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPelanggan.namaPelanggan}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPegawai.namaPegawai}"
+                          filterBy="##{item.idPegawai.namaPegawai}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananTitle_idPegawai}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPegawai.namaPegawai}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="PesananViewDialogWidget.show();" update=":PesananViewDialogForm">
+                        <f:setPropertyActionListener target="#{pesananController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="PesananUpdateDialogWidget.show();" update=":PesananUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{pesananController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="PesananDeleteDialogWidget.show();" update=":PesananDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{pesananController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{pesananController.items.rowCount} Pesanan.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListPesananCreateLink}" icon="ui-icon-plus"
+                             action="/pages/pesanan/CreatePesanan.xhtml" ajax="false" immediate="true"/>
+
+        </h:form>
+
+        <ui:include src="/pages/pesanan/View.xhtml"/>
+        <ui:include src="/pages/pesanan/Edit.xhtml"/>
+        <ui:include src="/pages/pesanan/Delete.xhtml"/>
+      
+
+    </ui:define>
+</ui:composition>

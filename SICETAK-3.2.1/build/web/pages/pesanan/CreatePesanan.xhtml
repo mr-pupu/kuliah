@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+
+
+    <ui:define name="content">
+
+        <p:layout style="min-width:400px;min-height:600px;" id="CreatePesananlayout">
+            <p:layoutUnit position="west" resizable="false" size="500"  header="Form Pesanan">
+
+                <h:form id="CreatePesananForm" prependId="false">
+
+                    <h:panelGrid columns="3">
+
+                        <!--Pelanggan-->
+
+                        <h:outputLabel value="#{bundle.CreatePelangganLabel_namaPelanggan}" 
+                                       for="namaPelangganCreate" />
+                        <p:inputText id="namaPelangganCreate"
+                                     value="#{pelangganController.selected.namaPelanggan}"
+                                     title="#{bundle.CreatePelangganTitle_namaPelanggan}" 
+                                     required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_namaPelanggan}"/>
+                        <h:outputLabel value=""/>   
+                        <h:outputLabel value="#{bundle.CreatePelangganLabel_alamatPelanggan}" 
+                                       for="alamatPelangganCreate" />
+                        <p:inputText id="alamatPelangganCreate"
+                                     value="#{pelangganController.selected.alamatPelanggan}"
+                                     title="#{bundle.CreatePelangganTitle_alamatPelanggan}" 
+                                     required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_alamatPelanggan}"/>
+                        <h:outputLabel value=""/>
+                        <h:outputLabel value="#{bundle.CreatePelangganLabel_tlpPelanggan}" 
+                                       for="tlpPelangganCreate" />
+                        <p:inputText id="tlpPelangganCreate"
+                                     value="#{pelangganController.selected.tlpPelanggan}"
+                                     title="#{bundle.CreatePelangganTitle_tlpPelanggan}" 
+                                     required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_tlpPelanggan}"/>
+                        <h:outputLabel value=""/>
+                        <h:outputLabel value="#{bundle.CreatePelangganLabel_kotaPelanggan}" 
+                                       for="kotaPelangganCreate" />
+                        <p:inputText id="kotaPelangganCreate"
+                                     value="#{pelangganController.selected.kotaPelanggan}"
+                                     title="#{bundle.CreatePelangganTitle_kotaPelanggan}" 
+                                     required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_kotaPelanggan}"/>
+                        <h:outputLabel value=""/>
+
+
+                        <!--PesananProduk-->
+                        <h:outputLabel value="#{bundle.CreatePesananProdukLabel_produk}" 
+                                       for="produkCreate" />
+                        <p:selectOneMenu effect="fade" id="produkCreate" 
+                                         value="#{pesananProdukController.selected.produk}" 
+                                         title="#{bundle.CreatePesananProdukTitle_produk}" 
+                                         required="true" requiredMessage="#{bundle.CreatePesananProdukRequiredMessage_produk}">
+                            <f:selectItem itemLabel="Select PesananProduk" itemValue="" />
+                            <f:selectItems value="#{produkController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+                        
+                        <!--Produk-->
+                        
+                        <p:commandButton icon="ui-icon-plus" update=":ProdukCreateDialogForm"
+                                         actionListener="#{produkController.reset()}" onclick="ProdukCreateDialogWidget.show();"/>
+
+
+
+                        <!--Pesanan-->
+
+                        <h:outputLabel value="#{bundle.CreatePesananLabel_tglJadi}" 
+                                       for="tglJadiCreate" />
+                        <p:inputText id="tglJadiCreate" value="#{pesananController.selected.tglJadi}" 
+                                     title="#{bundle.CreatePesananTitle_tglJadi}"
+                                     required="true" requiredMessage="#{bundle.CreatePesananRequiredMessage_tglJadi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </p:inputText>
+                        <h:outputLabel value=""/>
+
+                        <h:outputLabel value="#{bundle.CreatePesananLabel_idPegawai}" 
+                                       for="idPegawaiCreate" />
+                        <p:selectOneMenu effect="fade" id="idPegawaiCreate" 
+                                         value="#{pesananController.selected.idPegawai}" 
+                                         title="#{bundle.CreatePesananTitle_idPegawai}" 
+                                         required="true" requiredMessage="#{bundle.CreatePesananRequiredMessage_idPegawai}">
+                            <f:selectItem itemLabel="Select Pesanan" itemValue="" />
+                            <f:selectItems value="#{pegawaiController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel value=""/>
+
+
+
+                    </h:panelGrid>
+                </h:form>
+
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                Center
+            </p:layoutUnit>
+        </p:layout>
+
+        <ui:include src="/pages/pesanan/CreateProduk.xhtml"/>
+
+    </ui:define>
+
+
+</ui:composition>

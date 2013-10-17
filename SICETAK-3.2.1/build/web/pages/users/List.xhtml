@@ -1,0 +1,117 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="UsersForm">
+            <p:dataTable value="#{usersController.items}" var="item" id="UsersTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="UsersRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="UsersWidget" emptyMessage="#{bundle.ListUsersEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListUsersTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{UsersRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idUser}"
+                          filterBy="##{item.idUser}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsersTitle_idUser}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idUser}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.namaUser}"
+                          filterBy="##{item.namaUser}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsersTitle_namaUser}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.namaUser}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.email}"
+                          filterBy="##{item.email}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsersTitle_email}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.email}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.password}"
+                          filterBy="##{item.password}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsersTitle_password}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.password}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.role}"
+                          filterBy="##{item.role}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsersTitle_role}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.role}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="UsersViewDialogWidget.show();" update=":UsersViewDialogForm">
+                        <f:setPropertyActionListener target="#{usersController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="UsersUpdateDialogWidget.show();" update=":UsersUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{usersController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="UsersDeleteDialogWidget.show();" update=":UsersDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{usersController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{usersController.items.rowCount} Users.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListUsersCreateLink}" icon="ui-icon-plus" update=":UsersCreateDialogForm"
+                             actionListener="#{usersController.reset()}" onclick="UsersCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/users/View.xhtml"/>
+        <ui:include src="/pages/users/Edit.xhtml"/>
+        <ui:include src="/pages/users/Delete.xhtml"/>
+        <ui:include src="/pages/users/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

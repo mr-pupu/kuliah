@@ -1,0 +1,107 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                        xmlns:ui="http://java.sun.com/jsf/facelets"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:f="http://java.sun.com/jsf/core"
+                        xmlns:p="http://primefaces.org/ui"
+                        template="./../../template/master.xhtml">
+
+            <ui:define name="content">
+                <h:form id="BahanForm">
+                    <p:dataTable value="#{bahanController.items}" var="item" id="BahanTable"
+                                rowIndexVar="BahanRowIndex" paginator="true" rows="10"
+                                paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                                {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                widgetVar="BahanWidget" emptyMessage="#{bundle.ListBahanEmpty}">
+
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBahanTitle}"></h:outputText>
+                            </f:facet>
+
+                            <p:column headerText="#"
+                                    style="width: auto">
+                                <h:outputText value="#{BahanRowIndex+1}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.namaBahan}"
+                                    filterBy="##{item.namaBahan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBahanTitle_namaBahan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.namaBahan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.jumlahBahan}"
+                                    filterBy="##{item.jumlahBahan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBahanTitle_jumlahBahan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.jumlahBahan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.satuanBahan}"
+                                    filterBy="##{item.satuanBahan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBahanTitle_satuanBahan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.satuanBahan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.idKategoriBahan}"
+                                    filterBy="##{item.idKategoriBahan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBahanTitle_idKategoriBahan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idKategoriBahan.namaKategoriBahan}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+
+                                <p:commandButton icon="ui-icon-bullet" onclick="BahanViewDialogWidget.show();" update=":BahanViewDialogForm">
+                                    <f:setPropertyActionListener target="#{bahanController.selected}" value="#{item}"/>
+                                </p:commandButton>
+
+                                <p:spacer width="10px" />
+                                <p:commandButton  icon="ui-icon-pencil" onclick="BahanUpdateDialogWidget.show();" update=":BahanUpdateDialogForm">
+                                    <f:setPropertyActionListener target="#{bahanController.selected}" value="#{item}"/>
+                                </p:commandButton>
+
+                                <p:spacer width="10px" />
+                                <p:commandButton  icon="ui-icon-trash" onclick="BahanDeleteDialogWidget.show();" update=":BahanDeleteDialogForm">
+                                    <f:setPropertyActionListener target="#{bahanController.selected}" value="#{item}"/>
+                                </p:commandButton>
+                            
+                            </p:column>
+
+                            <f:facet name="footer">  
+                                Total : #{bahanController.items.rowCount} Bahan.  
+                            </f:facet> 
+                        </p:dataTable>
+
+                    <br />
+                    <p:commandButton value="#{bundle.ListBahanCreateLink}" icon="ui-icon-plus" update=":BahanCreateDialogForm"
+                                    actionListener="#{bahanController.reset()}" onclick="BahanCreateDialogWidget.show();"/>
+
+                </h:form>
+
+                    <ui:include src="/pages/bahan/View.xhtml"/>
+                    <ui:include src="/pages/bahan/Edit.xhtml"/>
+                    <ui:include src="/pages/bahan/Delete.xhtml"/>
+                    <ui:include src="/pages/bahan/Create.xhtml"/>
+
+            </ui:define>
+        </ui:composition>

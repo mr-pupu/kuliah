@@ -1,0 +1,87 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="StatusPesananForm">
+            <p:dataTable value="#{statusPesananController.items}" var="item" id="StatusPesananTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="StatusPesananRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="StatusPesananWidget" emptyMessage="#{bundle.ListStatusPesananEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListStatusPesananTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{StatusPesananRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idStatusPesanan}"
+                          filterBy="##{item.idStatusPesanan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListStatusPesananTitle_idStatusPesanan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idStatusPesanan}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.namaStatusPesanan}"
+                          filterBy="##{item.namaStatusPesanan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListStatusPesananTitle_namaStatusPesanan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.namaStatusPesanan}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="StatusPesananViewDialogWidget.show();" update=":StatusPesananViewDialogForm">
+                        <f:setPropertyActionListener target="#{statusPesananController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="StatusPesananUpdateDialogWidget.show();" update=":StatusPesananUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{statusPesananController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="StatusPesananDeleteDialogWidget.show();" update=":StatusPesananDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{statusPesananController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{statusPesananController.items.rowCount} StatusPesanan.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListStatusPesananCreateLink}" icon="ui-icon-plus" update=":StatusPesananCreateDialogForm"
+                             actionListener="#{statusPesananController.reset()}" onclick="StatusPesananCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/statusPesanan/View.xhtml"/>
+        <ui:include src="/pages/statusPesanan/Edit.xhtml"/>
+        <ui:include src="/pages/statusPesanan/Delete.xhtml"/>
+        <ui:include src="/pages/statusPesanan/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PembayaranCreateDialogWidget" id="PembayaranCreateDialogWidgetId" 
+                  header="#{bundle.CreatePembayaranTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PembayaranCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePembayaranLabel_idPembayaran}" 
+                                   for="idPembayaranCreate" />
+                    <p:inputText id="idPembayaranCreate"
+                                 value="#{pembayaranController.selected.idPembayaran}"
+                                 title="#{bundle.CreatePembayaranTitle_idPembayaran}" 
+                                 required="true" requiredMessage="#{bundle.CreatePembayaranRequiredMessage_idPembayaran}"/>
+                    <h:outputLabel value="#{bundle.CreatePembayaranLabel_tglPembayaran}" 
+                                   for="tglPembayaranCreate" />
+                    <p:inputText id="tglPembayaranCreate" value="#{pembayaranController.selected.tglPembayaran}" 
+                                 title="#{bundle.CreatePembayaranTitle_tglPembayaran}"
+                                 required="true" requiredMessage="#{bundle.CreatePembayaranRequiredMessage_tglPembayaran}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <h:outputLabel value="#{bundle.CreatePembayaranLabel_idPesanan}" 
+                                   for="idPesananCreate" />
+                    <p:selectOneMenu effect="fade" id="idPesananCreate" 
+                                     value="#{pembayaranController.selected.idPesanan}" 
+                                     title="#{bundle.CreatePembayaranTitle_idPesanan}" 
+                                     required="true" requiredMessage="#{bundle.CreatePembayaranRequiredMessage_idPesanan}">
+                        <f:selectItem itemLabel="Select Pembayaran" itemValue="" />
+                        <f:selectItems value="#{pesananController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePembayaranLabel_idPegawai}" 
+                                   for="idPegawaiCreate" />
+                    <p:selectOneMenu effect="fade" id="idPegawaiCreate" 
+                                     value="#{pembayaranController.selected.idPegawai}" 
+                                     title="#{bundle.CreatePembayaranTitle_idPegawai}" 
+                                     required="true" requiredMessage="#{bundle.CreatePembayaranRequiredMessage_idPegawai}">
+                        <f:selectItem itemLabel="Select Pembayaran" itemValue="" />
+                        <f:selectItems value="#{pegawaiController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:commandButton value="#{bundle.CreatePembayaranSaveLink}" icon="ui-icon-plus"
+                                     action="#{pembayaranController.create()}"
+                                     update=":messageGrowl :PembayaranForm:PembayaranTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PembayaranCreateDialogWidget, 'PembayaranCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pembayaranController.reset()}"
+                                     onclick="PembayaranCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

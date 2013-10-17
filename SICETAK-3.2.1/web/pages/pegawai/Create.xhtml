@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PegawaiCreateDialogWidget" id="PegawaiCreateDialogWidgetId" 
+                  header="#{bundle.CreatePegawaiTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PegawaiCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePegawaiLabel_idPegawai}" 
+                                   for="idPegawaiCreate" />
+                    <p:inputText id="idPegawaiCreate"
+                                 value="#{pegawaiController.selected.idPegawai}"
+                                 title="#{bundle.CreatePegawaiTitle_idPegawai}" 
+                                 required="true" requiredMessage="#{bundle.CreatePegawaiRequiredMessage_idPegawai}"/>
+                    <h:outputLabel value="#{bundle.CreatePegawaiLabel_namaPegawai}" 
+                                   for="namaPegawaiCreate" />
+                    <p:inputText id="namaPegawaiCreate"
+                                 value="#{pegawaiController.selected.namaPegawai}"
+                                 title="#{bundle.CreatePegawaiTitle_namaPegawai}" 
+                                 required="true" requiredMessage="#{bundle.CreatePegawaiRequiredMessage_namaPegawai}"/>
+                    <h:outputLabel value="#{bundle.CreatePegawaiLabel_alamatPegawai}" 
+                                   for="alamatPegawaiCreate" />
+                    <p:inputText id="alamatPegawaiCreate"
+                                 value="#{pegawaiController.selected.alamatPegawai}"
+                                 title="#{bundle.CreatePegawaiTitle_alamatPegawai}" 
+                                 required="true" requiredMessage="#{bundle.CreatePegawaiRequiredMessage_alamatPegawai}"/>
+                    <h:outputLabel value="#{bundle.CreatePegawaiLabel_tlpPegawai}" 
+                                   for="tlpPegawaiCreate" />
+                    <p:inputText id="tlpPegawaiCreate"
+                                 value="#{pegawaiController.selected.tlpPegawai}"
+                                 title="#{bundle.CreatePegawaiTitle_tlpPegawai}" 
+                                 required="true" requiredMessage="#{bundle.CreatePegawaiRequiredMessage_tlpPegawai}"/>
+
+
+                    <p:commandButton value="#{bundle.CreatePegawaiSaveLink}" icon="ui-icon-plus"
+                                     action="#{pegawaiController.create()}"
+                                     update=":messageGrowl :PegawaiForm:PegawaiTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PegawaiCreateDialogWidget, 'PegawaiCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pegawaiController.reset()}"
+                                     onclick="PegawaiCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

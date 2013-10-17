@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PegawaiViewDialogWidget" id="PegawaiViewDialogWidgetId"
+                  header="#{bundle.ViewPegawaiTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PegawaiViewDialogForm" prependId="false">
+                <p:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPegawaiLabel_idPegawai}"/>
+                    <h:outputText value="#{pegawaiController.selected.idPegawai}" title="#{bundle.ViewPegawaiTitle_idPegawai}"/>
+                    <h:outputText value="#{bundle.ViewPegawaiLabel_namaPegawai}"/>
+                    <h:outputText value="#{pegawaiController.selected.namaPegawai}" title="#{bundle.ViewPegawaiTitle_namaPegawai}"/>
+                    <h:outputText value="#{bundle.ViewPegawaiLabel_alamatPegawai}"/>
+                    <h:outputText value="#{pegawaiController.selected.alamatPegawai}" title="#{bundle.ViewPegawaiTitle_alamatPegawai}"/>
+                    <h:outputText value="#{bundle.ViewPegawaiLabel_tlpPegawai}"/>
+                    <h:outputText value="#{pegawaiController.selected.tlpPegawai}" title="#{bundle.ViewPegawaiTitle_tlpPegawai}"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.Ok}" icon="ui-icon-arrow-1-w"
+                                         onclick="PegawaiViewDialogWidget.hide();" />
+                    </f:facet>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

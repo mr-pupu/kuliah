@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+    <h:head>
+       
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <p:dialog widgetVar="PegawaiDeleteDialogWidget" id="PegawaiDeleteDialogId"
+                  header="#{bundle.DeletePegawaiTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+            <h:form id="PegawaiDeleteDialogForm" prependId="false">
+                #{bundle.DeleteRecord}: <h:outputText value="#{pegawaiController.selected.namaPegawai}" style="font-weight: bold" /><br/><br/>
+
+                <p:commandButton value="#{bundle.Delete}" icon="ui-icon-check" action="#{pegawaiController.delete}"
+                                 update=":messageGrowl :PegawaiForm:PegawaiTable"
+                                 oncomplete="closeDialogIfSucess(xhr, status, args, PegawaiDeleteDialogWidget, 'PegawaiDeleteDialogId')" />
+                <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pegawaiController.reset()}"
+                                 onclick="PegawaiDeleteDialogWidget.hide();" type="button" />
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

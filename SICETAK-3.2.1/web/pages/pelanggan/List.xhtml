@@ -1,0 +1,117 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                        xmlns:ui="http://java.sun.com/jsf/facelets"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:f="http://java.sun.com/jsf/core"
+                        xmlns:p="http://primefaces.org/ui"
+                        template="./../../template/master.xhtml">
+
+            <ui:define name="content">
+                <h:form id="PelangganForm">
+                    <p:dataTable value="#{pelangganController.items}" var="item" id="PelangganTable"
+                                cellpadding="2" cellspacing="0" rowIndexVar="PelangganRowIndex" paginator="true" rows="10"
+                                paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                                {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                widgetVar="PelangganWidget" emptyMessage="#{bundle.ListPelangganEmpty}">
+
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPelangganTitle}"></h:outputText>
+                            </f:facet>
+
+                            <p:column headerText="#"
+                                    style="width: auto">
+                                <h:outputText value="#{PelangganRowIndex+1}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.idPelanggan}"
+                                    filterBy="##{item.idPelanggan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPelangganTitle_idPelanggan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPelanggan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.namaPelanggan}"
+                                    filterBy="##{item.namaPelanggan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPelangganTitle_namaPelanggan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.namaPelanggan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.alamatPelanggan}"
+                                    filterBy="##{item.alamatPelanggan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPelangganTitle_alamatPelanggan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.alamatPelanggan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.tlpPelanggan}"
+                                    filterBy="##{item.tlpPelanggan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPelangganTitle_tlpPelanggan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tlpPelanggan}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.kotaPelanggan}"
+                                    filterBy="##{item.kotaPelanggan}"
+                                    filterMatchMode="contains"
+                                    style="width: auto">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPelangganTitle_kotaPelanggan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.kotaPelanggan}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+
+                                <p:commandButton icon="ui-icon-bullet" onclick="PelangganViewDialogWidget.show();" update=":PelangganViewDialogForm">
+                                    <f:setPropertyActionListener target="#{pelangganController.selected}" value="#{item}"/>
+                                </p:commandButton>
+
+                                <p:spacer width="10px" />
+                                <p:commandButton  icon="ui-icon-pencil" onclick="PelangganUpdateDialogWidget.show();" update=":PelangganUpdateDialogForm">
+                                    <f:setPropertyActionListener target="#{pelangganController.selected}" value="#{item}"/>
+                                </p:commandButton>
+
+                                <p:spacer width="10px" />
+                                <p:commandButton  icon="ui-icon-trash" onclick="PelangganDeleteDialogWidget.show();" update=":PelangganDeleteDialogForm">
+                                    <f:setPropertyActionListener target="#{pelangganController.selected}" value="#{item}"/>
+                                </p:commandButton>
+                            
+                            </p:column>
+
+                            <f:facet name="footer">  
+                                Total : #{pelangganController.items.rowCount} Pelanggan.  
+                            </f:facet> 
+                        </p:dataTable>
+
+                    <br />
+                    <p:commandButton value="#{bundle.ListPelangganCreateLink}" icon="ui-icon-plus" update=":PelangganCreateDialogForm"
+                                    actionListener="#{pelangganController.reset()}" onclick="PelangganCreateDialogWidget.show();"/>
+
+                </h:form>
+
+                    <ui:include src="/pages/pelanggan/View.xhtml"/>
+                    <ui:include src="/pages/pelanggan/Edit.xhtml"/>
+                    <ui:include src="/pages/pelanggan/Delete.xhtml"/>
+                    <ui:include src="/pages/pelanggan/Create.xhtml"/>
+
+            </ui:define>
+        </ui:composition>

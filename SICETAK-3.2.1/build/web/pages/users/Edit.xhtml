@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="UsersUpdateDialogWidget" id="UsersUpdateDialogWidgetId" 
+                  header="#{bundle.EditUsersTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="UsersUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUsersLabel_idUser}" 
+                                   for="idUserEdit" />
+                    <p:inputText id="idUserEdit"
+                                 value="#{usersController.selected.idUser}"
+                                 title="#{bundle.EditUsersTitle_idUser}" 
+                                 required="true" requiredMessage="#{bundle.EditUsersRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.EditUsersLabel_namaUser}" 
+                                   for="namaUserEdit" />
+                    <p:inputText id="namaUserEdit"
+                                 value="#{usersController.selected.namaUser}"
+                                 title="#{bundle.EditUsersTitle_namaUser}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditUsersLabel_email}" 
+                                   for="emailEdit" />
+                    <p:inputText id="emailEdit"
+                                 value="#{usersController.selected.email}"
+                                 title="#{bundle.EditUsersTitle_email}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditUsersLabel_password}" 
+                                   for="passwordEdit" />
+                    <p:inputText id="passwordEdit"
+                                 value="#{usersController.selected.password}"
+                                 title="#{bundle.EditUsersTitle_password}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditUsersLabel_role}" 
+                                   for="roleEdit" />
+                    <p:inputText id="roleEdit"
+                                 value="#{usersController.selected.role}"
+                                 title="#{bundle.EditUsersTitle_role}" 
+                                 />
+
+                    <p:commandButton value="#{bundle.EditUsersSaveLink}" icon="ui-icon-check"
+                                     action="#{usersController.update()}"
+                                     update=":messageGrowl :UsersForm:UsersTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, UsersUpdateDialogWidget, 'UsersUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{usersController.reset()}"
+                                     onclick="UsersUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

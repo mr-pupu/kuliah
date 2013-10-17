@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="KategoriProdukUpdateDialogWidget" id="KategoriProdukUpdateDialogWidgetId" 
+                  header="#{bundle.EditKategoriProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="KategoriProdukUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditKategoriProdukLabel_idKategoriProduk}" 
+                                   for="idKategoriProdukEdit" />
+                    <p:inputText id="idKategoriProdukEdit"
+                                 value="#{kategoriProdukController.selected.idKategoriProduk}"
+                                 title="#{bundle.EditKategoriProdukTitle_idKategoriProduk}" 
+                                 required="true" requiredMessage="#{bundle.EditKategoriProdukRequiredMessage_idKategoriProduk}"/>
+                    <h:outputLabel value="#{bundle.EditKategoriProdukLabel_namaKategoriProduk}" 
+                                   for="namaKategoriProdukEdit" />
+                    <p:inputText id="namaKategoriProdukEdit"
+                                 value="#{kategoriProdukController.selected.namaKategoriProduk}"
+                                 title="#{bundle.EditKategoriProdukTitle_namaKategoriProduk}" 
+                                 required="true" requiredMessage="#{bundle.EditKategoriProdukRequiredMessage_namaKategoriProduk}"/>
+
+                    <p:commandButton value="#{bundle.EditKategoriProdukSaveLink}" icon="ui-icon-check"
+                                     action="#{kategoriProdukController.update()}"
+                                     update=":messageGrowl :KategoriProdukForm:KategoriProdukTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, KategoriProdukUpdateDialogWidget, 'KategoriProdukUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{kategoriProdukController.reset()}"
+                                     onclick="KategoriProdukUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

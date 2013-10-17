@@ -1,0 +1,87 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="KategoriProdukForm">
+            <p:dataTable value="#{kategoriProdukController.items}" var="item" id="KategoriProdukTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="KategoriProdukRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="KategoriProdukWidget" emptyMessage="#{bundle.ListKategoriProdukEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListKategoriProdukTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{KategoriProdukRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idKategoriProduk}"
+                          filterBy="##{item.idKategoriProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListKategoriProdukTitle_idKategoriProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idKategoriProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.namaKategoriProduk}"
+                          filterBy="##{item.namaKategoriProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListKategoriProdukTitle_namaKategoriProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.namaKategoriProduk}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="KategoriProdukViewDialogWidget.show();" update=":KategoriProdukViewDialogForm">
+                        <f:setPropertyActionListener target="#{kategoriProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="KategoriProdukUpdateDialogWidget.show();" update=":KategoriProdukUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{kategoriProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="KategoriProdukDeleteDialogWidget.show();" update=":KategoriProdukDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{kategoriProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{kategoriProdukController.items.rowCount} KategoriProduk.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListKategoriProdukCreateLink}" icon="ui-icon-plus" update=":KategoriProdukCreateDialogForm"
+                             actionListener="#{kategoriProdukController.reset()}" onclick="KategoriProdukCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/kategoriProduk/View.xhtml"/>
+        <ui:include src="/pages/kategoriProduk/Edit.xhtml"/>
+        <ui:include src="/pages/kategoriProduk/Delete.xhtml"/>
+        <ui:include src="/pages/kategoriProduk/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

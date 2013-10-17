@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PesananUpdateDialogWidget" id="PesananUpdateDialogWidgetId" 
+                  header="#{bundle.EditPesananTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PesananUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPesananLabel_idPesanan}" 
+                                   for="idPesananEdit" />
+                    <p:inputText id="idPesananEdit"
+                                 value="#{pesananController.selected.idPesanan}"
+                                 title="#{bundle.EditPesananTitle_idPesanan}" 
+                                 required="true" requiredMessage="#{bundle.EditPesananRequiredMessage_idPesanan}"/>
+                    <h:outputLabel value="#{bundle.EditPesananLabel_tglPesan}" 
+                                   for="tglPesanEdit" />
+                    <p:inputText id="tglPesanEdit" value="#{pesananController.selected.tglPesan}" 
+                                 title="#{bundle.EditPesananTitle_tglPesan}"
+                                 required="true" requiredMessage="#{bundle.EditPesananRequiredMessage_tglPesan}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <h:outputLabel value="#{bundle.EditPesananLabel_tglJadi}" 
+                                   for="tglJadiEdit" />
+                    <p:inputText id="tglJadiEdit" value="#{pesananController.selected.tglJadi}" 
+                                 title="#{bundle.EditPesananTitle_tglJadi}"
+                                 required="true" requiredMessage="#{bundle.EditPesananRequiredMessage_tglJadi}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <h:outputLabel value="#{bundle.EditPesananLabel_idStatusPesanan}" 
+                                   for="idStatusPesananEdit" />
+                    <p:selectOneMenu effect="fade" id="idStatusPesananEdit" 
+                                     value="#{pesananController.selected.idStatusPesanan}" 
+                                     title="#{bundle.EditPesananTitle_idStatusPesanan}" 
+                                     required="true" requiredMessage="#{bundle.EditPesananRequiredMessage_idStatusPesanan}">
+                        <f:selectItem itemLabel="Select Pesanan" itemValue="" />
+                        <f:selectItems value="#{statusPesananController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPesananLabel_idPelanggan}" 
+                                   for="idPelangganEdit" />
+                    <p:selectOneMenu effect="fade" id="idPelangganEdit" 
+                                     value="#{pesananController.selected.idPelanggan}" 
+                                     title="#{bundle.EditPesananTitle_idPelanggan}" 
+                                     required="true" requiredMessage="#{bundle.EditPesananRequiredMessage_idPelanggan}">
+                        <f:selectItem itemLabel="Select Pesanan" itemValue="" />
+                        <f:selectItems value="#{pelangganController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPesananLabel_idPegawai}" 
+                                   for="idPegawaiEdit" />
+                    <p:selectOneMenu effect="fade" id="idPegawaiEdit" 
+                                     value="#{pesananController.selected.idPegawai}" 
+                                     title="#{bundle.EditPesananTitle_idPegawai}" 
+                                     required="true" requiredMessage="#{bundle.EditPesananRequiredMessage_idPegawai}">
+                        <f:selectItem itemLabel="Select Pesanan" itemValue="" />
+                        <f:selectItems value="#{pegawaiController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{bundle.EditPesananSaveLink}" icon="ui-icon-check"
+                                     action="#{pesananController.update()}"
+                                     update=":messageGrowl :PesananForm:PesananTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PesananUpdateDialogWidget, 'PesananUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pesananController.reset()}"
+                                     onclick="PesananUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

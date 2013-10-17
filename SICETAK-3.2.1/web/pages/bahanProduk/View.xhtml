@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="BahanProdukViewDialogWidget" id="BahanProdukViewDialogWidgetId"
+                  header="#{bundle.ViewBahanProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="BahanProdukViewDialogForm" prependId="false">
+                <p:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewBahanProdukLabel_jumlahBahan}"/>
+                    <h:outputText value="#{bahanProdukController.selected.jumlahBahan}" title="#{bundle.ViewBahanProdukTitle_jumlahBahan}"/>
+                    <h:outputText value="#{bundle.ViewBahanProdukLabel_produk}"/>
+                    <h:outputText value="#{bahanProdukController.selected.produk}" title="#{bundle.ViewBahanProdukTitle_produk}"/>
+                    <h:outputText value="#{bundle.ViewBahanProdukLabel_bahan}"/>
+                    <h:outputText value="#{bahanProdukController.selected.bahan}" title="#{bundle.ViewBahanProdukTitle_bahan}"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.Ok}" icon="ui-icon-arrow-1-w"
+                                         onclick="BahanProdukViewDialogWidget.hide();" />
+                    </f:facet>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

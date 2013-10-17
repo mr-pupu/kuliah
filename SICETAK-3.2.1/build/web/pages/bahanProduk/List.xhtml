@@ -1,0 +1,97 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="BahanProdukForm">
+            <p:dataTable value="#{bahanProdukController.items}" var="item" id="BahanProdukTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="BahanProdukRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="BahanProdukWidget" emptyMessage="#{bundle.ListBahanProdukEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListBahanProdukTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{BahanProdukRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.jumlahBahan}"
+                          filterBy="##{item.jumlahBahan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListBahanProdukTitle_jumlahBahan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jumlahBahan}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.produk}"
+                          filterBy="##{item.produk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListBahanProdukTitle_produk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.produk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.bahan}"
+                          filterBy="##{item.bahan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListBahanProdukTitle_bahan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.bahan}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="BahanProdukViewDialogWidget.show();" update=":BahanProdukViewDialogForm">
+                        <f:setPropertyActionListener target="#{bahanProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="BahanProdukUpdateDialogWidget.show();" update=":BahanProdukUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{bahanProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="BahanProdukDeleteDialogWidget.show();" update=":BahanProdukDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{bahanProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{bahanProdukController.items.rowCount} BahanProduk.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListBahanProdukCreateLink}" icon="ui-icon-plus" update=":BahanProdukCreateDialogForm"
+                             actionListener="#{bahanProdukController.reset()}" onclick="BahanProdukCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/bahanProduk/View.xhtml"/>
+        <ui:include src="/pages/bahanProduk/Edit.xhtml"/>
+        <ui:include src="/pages/bahanProduk/Delete.xhtml"/>
+        <ui:include src="/pages/bahanProduk/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

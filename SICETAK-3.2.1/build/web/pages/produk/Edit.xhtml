@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="ProdukUpdateDialogWidget" id="ProdukUpdateDialogWidgetId" 
+                  header="#{bundle.EditProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="ProdukUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProdukLabel_idProduk}" 
+                                   for="idProdukEdit" />
+                    <p:inputText id="idProdukEdit"
+                                 value="#{produkController.selected.idProduk}"
+                                 title="#{bundle.EditProdukTitle_idProduk}" 
+                                 required="true" requiredMessage="#{bundle.EditProdukRequiredMessage_idProduk}"/>
+                    <h:outputLabel value="#{bundle.EditProdukLabel_namaProduk}" 
+                                   for="namaProdukEdit" />
+                    <p:inputText id="namaProdukEdit"
+                                 value="#{produkController.selected.namaProduk}"
+                                 title="#{bundle.EditProdukTitle_namaProduk}" 
+                                 required="true" requiredMessage="#{bundle.EditProdukRequiredMessage_namaProduk}"/>
+                    <h:outputLabel value="#{bundle.EditProdukLabel_hargaProduk}" 
+                                   for="hargaProdukEdit" />
+                    <p:inputText id="hargaProdukEdit"
+                                 value="#{produkController.selected.hargaProduk}"
+                                 title="#{bundle.EditProdukTitle_hargaProduk}" 
+                                 required="true" requiredMessage="#{bundle.EditProdukRequiredMessage_hargaProduk}"/>
+                    <h:outputLabel value="#{bundle.EditProdukLabel_satuanProduk}" 
+                                   for="satuanProdukEdit" />
+                    <p:inputText id="satuanProdukEdit"
+                                 value="#{produkController.selected.satuanProduk}"
+                                 title="#{bundle.EditProdukTitle_satuanProduk}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditProdukLabel_imageProduk}" 
+                                   for="imageProdukEdit" />
+                    <p:inputText id="imageProdukEdit"
+                                 value="#{produkController.selected.imageProduk}"
+                                 title="#{bundle.EditProdukTitle_imageProduk}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditProdukLabel_idStatusProduk}" 
+                                   for="idStatusProdukEdit" />
+                    <p:selectOneMenu effect="fade" id="idStatusProdukEdit" 
+                                     value="#{produkController.selected.idStatusProduk}" 
+                                     title="#{bundle.EditProdukTitle_idStatusProduk}" 
+                                     >
+                        <f:selectItem itemLabel="Select Produk" itemValue="" />
+                        <f:selectItems value="#{statusProdukController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditProdukLabel_idKategoriProduk}" 
+                                   for="idKategoriProdukEdit" />
+                    <p:selectOneMenu effect="fade" id="idKategoriProdukEdit" 
+                                     value="#{produkController.selected.idKategoriProduk}" 
+                                     title="#{bundle.EditProdukTitle_idKategoriProduk}" 
+                                     required="true" requiredMessage="#{bundle.EditProdukRequiredMessage_idKategoriProduk}">
+                        <f:selectItem itemLabel="Select Produk" itemValue="" />
+                        <f:selectItems value="#{kategoriProdukController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{bundle.EditProdukSaveLink}" icon="ui-icon-check"
+                                     action="#{produkController.update()}"
+                                     update=":messageGrowl :ProdukForm:ProdukTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, ProdukUpdateDialogWidget, 'ProdukUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{produkController.reset()}"
+                                     onclick="ProdukUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

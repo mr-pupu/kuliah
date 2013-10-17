@@ -1,0 +1,120 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="PembayaranForm">
+            <p:dataTable value="#{pembayaranController.items}" var="item" id="PembayaranTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="PembayaranRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="PembayaranWidget" emptyMessage="#{bundle.ListPembayaranEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListPembayaranTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{PembayaranRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPembayaran}"
+                          filterBy="##{item.idPembayaran}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPembayaranTitle_idPembayaran}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPembayaran}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.tglPembayaran}"
+                          filterBy="##{item.tglPembayaran}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPembayaranTitle_tglPembayaran}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tglPembayaran}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column sortBy="#{item.totalPembayaran}"
+                          filterBy="##{item.totalPembayaran}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPembayaranTitle_totalPembayaran}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.totalPembayaran}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPesanan}"
+                          filterBy="##{item.idPesanan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPembayaranTitle_idPesanan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPesanan}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPegawai}"
+                          filterBy="##{item.idPegawai}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPembayaranTitle_idPegawai}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPegawai}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="PembayaranViewDialogWidget.show();" update=":PembayaranViewDialogForm">
+                        <f:setPropertyActionListener target="#{pembayaranController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="PembayaranUpdateDialogWidget.show();" update=":PembayaranUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{pembayaranController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="PembayaranDeleteDialogWidget.show();" update=":PembayaranDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{pembayaranController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{pembayaranController.items.rowCount} Pembayaran.  
+                    
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListPembayaranCreateLink}" icon="ui-icon-plus" update=":PembayaranCreateDialogForm"
+                             actionListener="#{pembayaranController.reset()}" onclick="PembayaranCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/pembayaran/View.xhtml"/>
+        <ui:include src="/pages/pembayaran/Edit.xhtml"/>
+        <ui:include src="/pages/pembayaran/Delete.xhtml"/>
+        <ui:include src="/pages/pembayaran/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

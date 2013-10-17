@@ -1,0 +1,97 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="PesananProdukForm">
+            <p:dataTable value="#{pesananProdukController.items}" var="item" id="PesananProdukTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="PesananProdukRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="PesananProdukWidget" emptyMessage="#{bundle.ListPesananProdukEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListPesananProdukTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{PesananProdukRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.jumlahProduk}"
+                          filterBy="##{item.jumlahProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananProdukTitle_jumlahProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jumlahProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.produk}"
+                          filterBy="##{item.produk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananProdukTitle_produk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.produk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.pesanan}"
+                          filterBy="##{item.pesanan}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPesananProdukTitle_pesanan}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pesanan}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="PesananProdukViewDialogWidget.show();" update=":PesananProdukViewDialogForm">
+                        <f:setPropertyActionListener target="#{pesananProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="PesananProdukUpdateDialogWidget.show();" update=":PesananProdukUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{pesananProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="PesananProdukDeleteDialogWidget.show();" update=":PesananProdukDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{pesananProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{pesananProdukController.items.rowCount} PesananProduk.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListPesananProdukCreateLink}" icon="ui-icon-plus" update=":PesananProdukCreateDialogForm"
+                             actionListener="#{pesananProdukController.reset()}" onclick="PesananProdukCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/pesananProduk/View.xhtml"/>
+        <ui:include src="/pages/pesananProduk/Edit.xhtml"/>
+        <ui:include src="/pages/pesananProduk/Delete.xhtml"/>
+        <ui:include src="/pages/pesananProduk/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

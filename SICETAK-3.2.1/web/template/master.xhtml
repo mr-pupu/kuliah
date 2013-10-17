@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Facelets Template</title>
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+    </h:head>
+
+    <h:body>
+        <f:view contentType="text/html; charset=UTF-8" encoding="UTF-8" >
+            <div id="top">
+                <ui:insert name="top"></ui:insert>
+                <ui:include src="top.xhtml" />
+            </div>
+            <div>
+                <div id="left">
+                    <ui:insert name="left"></ui:insert>
+                    <ui:include src="left.xhtml" />
+                </div>
+                <div id="content" class="left_content">
+                    <p:growl id="messageGrowl" />
+                    <ui:insert name="content"/>
+                </div>
+            </div>
+            <div id="bottom">
+                <ui:insert name="bottom"></ui:insert>
+            </div>
+            
+            <h:outputScript library="javascript" name="jscodes.js" />
+        </f:view>
+    </h:body>
+
+
+</html>

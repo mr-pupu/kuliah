@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="BahanProdukCreateDialogWidget" id="BahanProdukCreateDialogWidgetId" 
+                  header="#{bundle.CreateBahanProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="BahanProdukCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBahanProdukLabel_jumlahBahan}" 
+                                   for="jumlahBahanCreate" />
+                    <p:inputText id="jumlahBahanCreate"
+                                 value="#{bahanProdukController.selected.jumlahBahan}"
+                                 title="#{bundle.CreateBahanProdukTitle_jumlahBahan}" 
+                                 />
+                    <h:outputLabel value="#{bundle.CreateBahanProdukLabel_produk}" 
+                                   for="produkCreate" />
+                    <p:selectOneMenu effect="fade" id="produkCreate" 
+                                     value="#{bahanProdukController.selected.produk}" 
+                                     title="#{bundle.CreateBahanProdukTitle_produk}" 
+                                     required="true" requiredMessage="#{bundle.CreateBahanProdukRequiredMessage_produk}">
+                        <f:selectItem itemLabel="Select BahanProduk" itemValue="" />
+                        <f:selectItems value="#{produkController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateBahanProdukLabel_bahan}" 
+                                   for="bahanCreate" />
+                    <p:selectOneMenu effect="fade" id="bahanCreate" 
+                                     value="#{bahanProdukController.selected.bahan}" 
+                                     title="#{bundle.CreateBahanProdukTitle_bahan}" 
+                                     required="true" requiredMessage="#{bundle.CreateBahanProdukRequiredMessage_bahan}">
+                        <f:selectItem itemLabel="Select BahanProduk" itemValue="" />
+                        <f:selectItems value="#{bahanController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:commandButton value="#{bundle.CreateBahanProdukSaveLink}" icon="ui-icon-plus"
+                                     action="#{bahanProdukController.create()}"
+                                     update=":messageGrowl :BahanProdukForm:BahanProdukTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, BahanProdukCreateDialogWidget, 'BahanProdukCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{bahanProdukController.reset()}"
+                                     onclick="BahanProdukCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

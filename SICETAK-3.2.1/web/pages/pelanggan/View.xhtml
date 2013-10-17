@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PelangganViewDialogWidget" id="PelangganViewDialogWidgetId"
+                  header="#{bundle.ViewPelangganTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PelangganViewDialogForm" prependId="false">
+                <p:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPelangganLabel_idPelanggan}"/>
+                    <h:outputText value="#{pelangganController.selected.idPelanggan}" title="#{bundle.ViewPelangganTitle_idPelanggan}"/>
+                    <h:outputText value="#{bundle.ViewPelangganLabel_namaPelanggan}"/>
+                    <h:outputText value="#{pelangganController.selected.namaPelanggan}" title="#{bundle.ViewPelangganTitle_namaPelanggan}"/>
+                    <h:outputText value="#{bundle.ViewPelangganLabel_alamatPelanggan}"/>
+                    <h:outputText value="#{pelangganController.selected.alamatPelanggan}" title="#{bundle.ViewPelangganTitle_alamatPelanggan}"/>
+                    <h:outputText value="#{bundle.ViewPelangganLabel_tlpPelanggan}"/>
+                    <h:outputText value="#{pelangganController.selected.tlpPelanggan}" title="#{bundle.ViewPelangganTitle_tlpPelanggan}"/>
+                    <h:outputText value="#{bundle.ViewPelangganLabel_kotaPelanggan}"/>
+                    <h:outputText value="#{pelangganController.selected.kotaPelanggan}" title="#{bundle.ViewPelangganTitle_kotaPelanggan}"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="#{bundle.Ok}" icon="ui-icon-arrow-1-w"
+                                         onclick="PelangganViewDialogWidget.hide();" />
+                    </f:facet>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

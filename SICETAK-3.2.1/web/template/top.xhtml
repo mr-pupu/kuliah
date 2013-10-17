@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>   
+        <ui:composition>
+
+            <h:form>
+                <p:growl id="messages"/>
+                <p:menubar autoDisplay="false">
+                    <p:menuitem value="Home" icon="ui-icon-home" action="/index.xhtml" ajax="false" immediate="true"  />
+
+                    <p:submenu label="Master" icon="ui-icon-clipboard">
+                        <p:menuitem value="Bahan" action="/pages/bahan/List.xhtml" immediate="true" ajax="false"/>
+                        <p:menuitem value="Produk" action="/pages/produk/List.xhtml" immediate="true" ajax="false"/>
+                    </p:submenu>
+
+                    <p:submenu label="Transaksi" icon="ui-icon-cart">
+                        <p:menuitem value="Pesanan" action="/pages/pesanan/List.xhtml" immediate="true" ajax="false"/>
+                        <p:menuitem value="Pembayaran" action="/pages/pembayaran/List.xhtml" immediate="true" ajax="false"/>
+                    </p:submenu>
+
+                    <p:submenu label="Laporan" icon="ui-icon-note">
+                        <p:menuitem value="Pesanan" action="/pages/pesanan/List.xhtml" immediate="true" ajax="false"/>
+                        <p:menuitem value="Pembayaran" action="/pages/pembayaran/List.xhtml" immediate="true" ajax="false" />
+                    </p:submenu>
+
+                    <p:submenu label="Setting" icon="ui-icon-gear">
+                        <p:menuitem value="User"  action="/pages/users/List.xhtml" immediate="true" ajax="false"/>
+                        <p:menuitem value="Pegawai"  action="/pages/pegawai/List.xhtml" immediate="true" ajax="false"/>
+                    </p:submenu>
+
+
+                    <p:menuitem value="logout" icon="ui-icon-power" action="#" ajax="false" />
+                </p:menubar>
+
+            </h:form>
+
+        </ui:composition>   
+    </h:body>
+</html>

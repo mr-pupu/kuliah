@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PegawaiUpdateDialogWidget" id="PegawaiUpdateDialogWidgetId" 
+                  header="#{bundle.EditPegawaiTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PegawaiUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPegawaiLabel_idPegawai}" 
+                                   for="idPegawaiEdit" />
+                    <p:inputText id="idPegawaiEdit"
+                                 value="#{pegawaiController.selected.idPegawai}"
+                                 title="#{bundle.EditPegawaiTitle_idPegawai}" 
+                                 required="true" requiredMessage="#{bundle.EditPegawaiRequiredMessage_idPegawai}"/>
+                    <h:outputLabel value="#{bundle.EditPegawaiLabel_namaPegawai}" 
+                                   for="namaPegawaiEdit" />
+                    <p:inputText id="namaPegawaiEdit"
+                                 value="#{pegawaiController.selected.namaPegawai}"
+                                 title="#{bundle.EditPegawaiTitle_namaPegawai}" 
+                                 required="true" requiredMessage="#{bundle.EditPegawaiRequiredMessage_namaPegawai}"/>
+                    <h:outputLabel value="#{bundle.EditPegawaiLabel_alamatPegawai}" 
+                                   for="alamatPegawaiEdit" />
+                    <p:inputText id="alamatPegawaiEdit"
+                                 value="#{pegawaiController.selected.alamatPegawai}"
+                                 title="#{bundle.EditPegawaiTitle_alamatPegawai}" 
+                                 required="true" requiredMessage="#{bundle.EditPegawaiRequiredMessage_alamatPegawai}"/>
+                    <h:outputLabel value="#{bundle.EditPegawaiLabel_tlpPegawai}" 
+                                   for="tlpPegawaiEdit" />
+                    <p:inputText id="tlpPegawaiEdit"
+                                 value="#{pegawaiController.selected.tlpPegawai}"
+                                 title="#{bundle.EditPegawaiTitle_tlpPegawai}" 
+                                 required="true" requiredMessage="#{bundle.EditPegawaiRequiredMessage_tlpPegawai}"/>
+
+                    <p:commandButton value="#{bundle.EditPegawaiSaveLink}" icon="ui-icon-check"
+                                     action="#{pegawaiController.update()}"
+                                     update=":messageGrowl :PegawaiForm:PegawaiTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PegawaiUpdateDialogWidget, 'PegawaiUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pegawaiController.reset()}"
+                                     onclick="PegawaiUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="BahanProdukUpdateDialogWidget" id="BahanProdukUpdateDialogWidgetId" 
+                  header="#{bundle.EditBahanProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="BahanProdukUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditBahanProdukLabel_jumlahBahan}" 
+                                   for="jumlahBahanEdit" />
+                    <p:inputText id="jumlahBahanEdit"
+                                 value="#{bahanProdukController.selected.jumlahBahan}"
+                                 title="#{bundle.EditBahanProdukTitle_jumlahBahan}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditBahanProdukLabel_produk}" 
+                                   for="produkEdit" />
+                    <p:selectOneMenu effect="fade" id="produkEdit" 
+                                     value="#{bahanProdukController.selected.produk}" 
+                                     title="#{bundle.EditBahanProdukTitle_produk}" 
+                                     required="true" requiredMessage="#{bundle.EditBahanProdukRequiredMessage_produk}">
+                        <f:selectItem itemLabel="Select BahanProduk" itemValue="" />
+                        <f:selectItems value="#{produkController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditBahanProdukLabel_bahan}" 
+                                   for="bahanEdit" />
+                    <p:selectOneMenu effect="fade" id="bahanEdit" 
+                                     value="#{bahanProdukController.selected.bahan}" 
+                                     title="#{bundle.EditBahanProdukTitle_bahan}" 
+                                     required="true" requiredMessage="#{bundle.EditBahanProdukRequiredMessage_bahan}">
+                        <f:selectItem itemLabel="Select BahanProduk" itemValue="" />
+                        <f:selectItems value="#{bahanController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{bundle.EditBahanProdukSaveLink}" icon="ui-icon-check"
+                                     action="#{bahanProdukController.update()}"
+                                     update=":messageGrowl :BahanProdukForm:BahanProdukTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, BahanProdukUpdateDialogWidget, 'BahanProdukUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{bahanProdukController.reset()}"
+                                     onclick="BahanProdukUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PesananProdukCreateDialogWidget" id="PesananProdukCreateDialogWidgetId" 
+                  header="#{bundle.CreatePesananProdukTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PesananProdukCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePesananProdukLabel_jumlahProduk}" 
+                                   for="jumlahProdukCreate" />
+                    <p:inputText id="jumlahProdukCreate"
+                                 value="#{pesananProdukController.selected.jumlahProduk}"
+                                 title="#{bundle.CreatePesananProdukTitle_jumlahProduk}" 
+                                 required="true" requiredMessage="#{bundle.CreatePesananProdukRequiredMessage_jumlahProduk}"/>
+                    <h:outputLabel value="#{bundle.CreatePesananProdukLabel_produk}" 
+                                   for="produkCreate" />
+                    <p:selectOneMenu effect="fade" id="produkCreate" 
+                                     value="#{pesananProdukController.selected.produk}" 
+                                     title="#{bundle.CreatePesananProdukTitle_produk}" 
+                                     required="true" requiredMessage="#{bundle.CreatePesananProdukRequiredMessage_produk}">
+                        <f:selectItem itemLabel="Select PesananProduk" itemValue="" />
+                        <f:selectItems value="#{produkController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePesananProdukLabel_pesanan}" 
+                                   for="pesananCreate" />
+                    <p:selectOneMenu effect="fade" id="pesananCreate" 
+                                     value="#{pesananProdukController.selected.pesanan}" 
+                                     title="#{bundle.CreatePesananProdukTitle_pesanan}" 
+                                     required="true" requiredMessage="#{bundle.CreatePesananProdukRequiredMessage_pesanan}">
+                        <f:selectItem itemLabel="Select PesananProduk" itemValue="" />
+                        <f:selectItems value="#{pesananController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:commandButton value="#{bundle.CreatePesananProdukSaveLink}" icon="ui-icon-plus"
+                                     action="#{pesananProdukController.create()}"
+                                     update=":messageGrowl :PesananProdukForm:PesananProdukTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PesananProdukCreateDialogWidget, 'PesananProdukCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pesananProdukController.reset()}"
+                                     onclick="PesananProdukCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

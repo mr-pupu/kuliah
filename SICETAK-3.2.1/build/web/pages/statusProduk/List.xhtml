@@ -1,0 +1,87 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="StatusProdukForm">
+            <p:dataTable value="#{statusProdukController.items}" var="item" id="StatusProdukTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="StatusProdukRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="StatusProdukWidget" emptyMessage="#{bundle.ListStatusProdukEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListStatusProdukTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{StatusProdukRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idStatusProduk}"
+                          filterBy="##{item.idStatusProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListStatusProdukTitle_idStatusProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idStatusProduk}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.namaStatusProduk}"
+                          filterBy="##{item.namaStatusProduk}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListStatusProdukTitle_namaStatusProduk}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.namaStatusProduk}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="StatusProdukViewDialogWidget.show();" update=":StatusProdukViewDialogForm">
+                        <f:setPropertyActionListener target="#{statusProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="StatusProdukUpdateDialogWidget.show();" update=":StatusProdukUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{statusProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="StatusProdukDeleteDialogWidget.show();" update=":StatusProdukDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{statusProdukController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{statusProdukController.items.rowCount} StatusProduk.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListStatusProdukCreateLink}" icon="ui-icon-plus" update=":StatusProdukCreateDialogForm"
+                             actionListener="#{statusProdukController.reset()}" onclick="StatusProdukCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/statusProduk/View.xhtml"/>
+        <ui:include src="/pages/statusProduk/Edit.xhtml"/>
+        <ui:include src="/pages/statusProduk/Delete.xhtml"/>
+        <ui:include src="/pages/statusProduk/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

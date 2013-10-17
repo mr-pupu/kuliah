@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PelangganCreateDialogWidget" id="PelangganCreateDialogWidgetId" 
+                  header="#{bundle.CreatePelangganTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PelangganCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePelangganLabel_idPelanggan}" 
+                                   for="idPelangganCreate" />
+                    <p:inputText id="idPelangganCreate"
+                                 value="#{pelangganController.selected.idPelanggan}"
+                                 title="#{bundle.CreatePelangganTitle_idPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_idPelanggan}"/>
+                    <h:outputLabel value="#{bundle.CreatePelangganLabel_namaPelanggan}" 
+                                   for="namaPelangganCreate" />
+                    <p:inputText id="namaPelangganCreate"
+                                 value="#{pelangganController.selected.namaPelanggan}"
+                                 title="#{bundle.CreatePelangganTitle_namaPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_namaPelanggan}"/>
+                    <h:outputLabel value="#{bundle.CreatePelangganLabel_alamatPelanggan}" 
+                                   for="alamatPelangganCreate" />
+                    <p:inputText id="alamatPelangganCreate"
+                                 value="#{pelangganController.selected.alamatPelanggan}"
+                                 title="#{bundle.CreatePelangganTitle_alamatPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_alamatPelanggan}"/>
+                    <h:outputLabel value="#{bundle.CreatePelangganLabel_tlpPelanggan}" 
+                                   for="tlpPelangganCreate" />
+                    <p:inputText id="tlpPelangganCreate"
+                                 value="#{pelangganController.selected.tlpPelanggan}"
+                                 title="#{bundle.CreatePelangganTitle_tlpPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_tlpPelanggan}"/>
+                    <h:outputLabel value="#{bundle.CreatePelangganLabel_kotaPelanggan}" 
+                                   for="kotaPelangganCreate" />
+                    <p:inputText id="kotaPelangganCreate"
+                                 value="#{pelangganController.selected.kotaPelanggan}"
+                                 title="#{bundle.CreatePelangganTitle_kotaPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.CreatePelangganRequiredMessage_kotaPelanggan}"/>
+
+
+                    <p:commandButton value="#{bundle.CreatePelangganSaveLink}" icon="ui-icon-plus"
+                                     action="#{pelangganController.create()}"
+                                     update=":messageGrowl :PelangganForm:PelangganTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PelangganCreateDialogWidget, 'PelangganCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pelangganController.reset()}"
+                                     onclick="PelangganCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

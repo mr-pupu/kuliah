@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PembayaranUpdateDialogWidget" id="PembayaranUpdateDialogWidgetId" 
+                  header="#{bundle.EditPembayaranTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PembayaranUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPembayaranLabel_idPembayaran}" 
+                                   for="idPembayaranEdit" />
+                    <p:inputText id="idPembayaranEdit"
+                                 value="#{pembayaranController.selected.idPembayaran}"
+                                 title="#{bundle.EditPembayaranTitle_idPembayaran}" 
+                                 required="true" requiredMessage="#{bundle.EditPembayaranRequiredMessage_idPembayaran}"/>
+                    <h:outputLabel value="#{bundle.EditPembayaranLabel_tglPembayaran}" 
+                                   for="tglPembayaranEdit" />
+                    <p:inputText id="tglPembayaranEdit" value="#{pembayaranController.selected.tglPembayaran}" 
+                                 title="#{bundle.EditPembayaranTitle_tglPembayaran}"
+                                 required="true" requiredMessage="#{bundle.EditPembayaranRequiredMessage_tglPembayaran}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <h:outputLabel value="#{bundle.EditPembayaranLabel_totalPembayaran}" 
+                                   for="totalPembayaranEdit" />
+                    <p:inputText id="totalPembayaranEdit"
+                                 value="#{pembayaranController.selected.totalPembayaran}"
+                                 title="#{bundle.EditPembayaranTitle_totalPembayaran}" 
+                                 required="true" requiredMessage="#{bundle.EditPembayaranRequiredMessage_totalPembayaran}"/>
+                    <h:outputLabel value="#{bundle.EditPembayaranLabel_idPesanan}" 
+                                   for="idPesananEdit" />
+                    <p:selectOneMenu effect="fade" id="idPesananEdit" 
+                                     value="#{pembayaranController.selected.idPesanan}" 
+                                     title="#{bundle.EditPembayaranTitle_idPesanan}" 
+                                     required="true" requiredMessage="#{bundle.EditPembayaranRequiredMessage_idPesanan}">
+                        <f:selectItem itemLabel="Select Pembayaran" itemValue="" />
+                        <f:selectItems value="#{pesananController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPembayaranLabel_idPegawai}" 
+                                   for="idPegawaiEdit" />
+                    <p:selectOneMenu effect="fade" id="idPegawaiEdit" 
+                                     value="#{pembayaranController.selected.idPegawai}" 
+                                     title="#{bundle.EditPembayaranTitle_idPegawai}" 
+                                     required="true" requiredMessage="#{bundle.EditPembayaranRequiredMessage_idPegawai}">
+                        <f:selectItem itemLabel="Select Pembayaran" itemValue="" />
+                        <f:selectItems value="#{pegawaiController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{bundle.EditPembayaranSaveLink}" icon="ui-icon-check"
+                                     action="#{pembayaranController.update()}"
+                                     update=":messageGrowl :PembayaranForm:PembayaranTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PembayaranUpdateDialogWidget, 'PembayaranUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pembayaranController.reset()}"
+                                     onclick="PembayaranUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

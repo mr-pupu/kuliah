@@ -1,0 +1,107 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../../template/master.xhtml">
+
+    <ui:define name="content">
+        <h:form id="PegawaiForm">
+            <p:dataTable value="#{pegawaiController.items}" var="item" id="PegawaiTable"
+                         cellpadding="2" cellspacing="0" rowIndexVar="PegawaiRowIndex" paginator="true" rows="10"
+                         paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport}  
+                         {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         widgetVar="PegawaiWidget" emptyMessage="#{bundle.ListPegawaiEmpty}">
+
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListPegawaiTitle}"></h:outputText>
+                </f:facet>
+
+                <p:column headerText="#"
+                          style="width: auto">
+                    <h:outputText value="#{PegawaiRowIndex+1}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.idPegawai}"
+                          filterBy="##{item.idPegawai}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPegawaiTitle_idPegawai}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPegawai}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.namaPegawai}"
+                          filterBy="##{item.namaPegawai}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPegawaiTitle_namaPegawai}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.namaPegawai}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.alamatPegawai}"
+                          filterBy="##{item.alamatPegawai}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPegawaiTitle_alamatPegawai}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.alamatPegawai}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.tlpPegawai}"
+                          filterBy="##{item.tlpPegawai}"
+                          filterMatchMode="contains"
+                          style="width: auto">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPegawaiTitle_tlpPegawai}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tlpPegawai}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+
+                    <p:commandButton icon="ui-icon-bullet" onclick="PegawaiViewDialogWidget.show();" update=":PegawaiViewDialogForm">
+                        <f:setPropertyActionListener target="#{pegawaiController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-pencil" onclick="PegawaiUpdateDialogWidget.show();" update=":PegawaiUpdateDialogForm">
+                        <f:setPropertyActionListener target="#{pegawaiController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:spacer width="10px" />
+                    <p:commandButton  icon="ui-icon-trash" onclick="PegawaiDeleteDialogWidget.show();" update=":PegawaiDeleteDialogForm">
+                        <f:setPropertyActionListener target="#{pegawaiController.selected}" value="#{item}"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">  
+                    Total : #{pegawaiController.items.rowCount} Pegawai.  
+                </f:facet> 
+            </p:dataTable>
+
+            <br />
+            <p:commandButton value="#{bundle.ListPegawaiCreateLink}" icon="ui-icon-plus" update=":PegawaiCreateDialogForm"
+                             actionListener="#{pegawaiController.reset()}" onclick="PegawaiCreateDialogWidget.show();"/>
+
+        </h:form>
+
+        <ui:include src="/pages/pegawai/View.xhtml"/>
+        <ui:include src="/pages/pegawai/Edit.xhtml"/>
+        <ui:include src="/pages/pegawai/Delete.xhtml"/>
+        <ui:include src="/pages/pegawai/Create.xhtml"/>
+
+    </ui:define>
+</ui:composition>

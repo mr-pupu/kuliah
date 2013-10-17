@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="PelangganUpdateDialogWidget" id="PelangganUpdateDialogWidgetId" 
+                  header="#{bundle.EditPelangganTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="PelangganUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPelangganLabel_idPelanggan}" 
+                                   for="idPelangganEdit" />
+                    <p:inputText id="idPelangganEdit"
+                                 value="#{pelangganController.selected.idPelanggan}"
+                                 title="#{bundle.EditPelangganTitle_idPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.EditPelangganRequiredMessage_idPelanggan}"/>
+                    <h:outputLabel value="#{bundle.EditPelangganLabel_namaPelanggan}" 
+                                   for="namaPelangganEdit" />
+                    <p:inputText id="namaPelangganEdit"
+                                 value="#{pelangganController.selected.namaPelanggan}"
+                                 title="#{bundle.EditPelangganTitle_namaPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.EditPelangganRequiredMessage_namaPelanggan}"/>
+                    <h:outputLabel value="#{bundle.EditPelangganLabel_alamatPelanggan}" 
+                                   for="alamatPelangganEdit" />
+                    <p:inputText id="alamatPelangganEdit"
+                                 value="#{pelangganController.selected.alamatPelanggan}"
+                                 title="#{bundle.EditPelangganTitle_alamatPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.EditPelangganRequiredMessage_alamatPelanggan}"/>
+                    <h:outputLabel value="#{bundle.EditPelangganLabel_tlpPelanggan}" 
+                                   for="tlpPelangganEdit" />
+                    <p:inputText id="tlpPelangganEdit"
+                                 value="#{pelangganController.selected.tlpPelanggan}"
+                                 title="#{bundle.EditPelangganTitle_tlpPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.EditPelangganRequiredMessage_tlpPelanggan}"/>
+                    <h:outputLabel value="#{bundle.EditPelangganLabel_kotaPelanggan}" 
+                                   for="kotaPelangganEdit" />
+                    <p:inputText id="kotaPelangganEdit"
+                                 value="#{pelangganController.selected.kotaPelanggan}"
+                                 title="#{bundle.EditPelangganTitle_kotaPelanggan}" 
+                                 required="true" requiredMessage="#{bundle.EditPelangganRequiredMessage_kotaPelanggan}"/>
+
+                    <p:commandButton value="#{bundle.EditPelangganSaveLink}" icon="ui-icon-check"
+                                     action="#{pelangganController.update()}"
+                                     update=":messageGrowl :PelangganForm:PelangganTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, PelangganUpdateDialogWidget, 'PelangganUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{pelangganController.reset()}"
+                                     onclick="PelangganUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

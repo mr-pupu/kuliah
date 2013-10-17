@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="BahanUpdateDialogWidget" id="BahanUpdateDialogWidgetId" 
+                  header="#{bundle.EditBahanTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="BahanUpdateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditBahanLabel_idBahan}" 
+                                   for="idBahanEdit" />
+                    <p:inputText id="idBahanEdit"
+                                 value="#{bahanController.selected.idBahan}"
+                                 title="#{bundle.EditBahanTitle_idBahan}" 
+                                 required="true" requiredMessage="#{bundle.EditBahanRequiredMessage_idBahan}"/>
+                    <h:outputLabel value="#{bundle.EditBahanLabel_namaBahan}" 
+                                   for="namaBahanEdit" />
+                    <p:inputText id="namaBahanEdit"
+                                 value="#{bahanController.selected.namaBahan}"
+                                 title="#{bundle.EditBahanTitle_namaBahan}" 
+                                 required="true" requiredMessage="#{bundle.EditBahanRequiredMessage_namaBahan}"/>
+                    <h:outputLabel value="#{bundle.EditBahanLabel_jumlahBahan}" 
+                                   for="jumlahBahanEdit" />
+                    <p:inputText id="jumlahBahanEdit"
+                                 value="#{bahanController.selected.jumlahBahan}"
+                                 title="#{bundle.EditBahanTitle_jumlahBahan}" 
+                                 required="true" requiredMessage="#{bundle.EditBahanRequiredMessage_jumlahBahan}"/>
+                    <h:outputLabel value="#{bundle.EditBahanLabel_satuanBahan}" 
+                                   for="satuanBahanEdit" />
+                    <p:inputText id="satuanBahanEdit"
+                                 value="#{bahanController.selected.satuanBahan}"
+                                 title="#{bundle.EditBahanTitle_satuanBahan}" 
+                                 />
+                    <h:outputLabel value="#{bundle.EditBahanLabel_idKategoriBahan}" 
+                                   for="idKategoriBahanEdit" />
+                    <p:selectOneMenu effect="fade" id="idKategoriBahanEdit" 
+                                     value="#{bahanController.selected.idKategoriBahan}" 
+                                     title="#{bundle.EditBahanTitle_idKategoriBahan}" 
+                                     required="true" requiredMessage="#{bundle.EditBahanRequiredMessage_idKategoriBahan}">
+                        <f:selectItem itemLabel="Select Bahan" itemValue="" />
+                        <f:selectItems value="#{kategoriBahanController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{bundle.EditBahanSaveLink}" icon="ui-icon-check"
+                                     action="#{bahanController.update()}"
+                                     update=":messageGrowl :BahanForm:BahanTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, BahanUpdateDialogWidget, 'BahanUpdateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{bahanController.reset()}"
+                                     onclick="BahanUpdateDialogWidget.hide();" type="button" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

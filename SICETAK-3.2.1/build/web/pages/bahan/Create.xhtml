@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="component.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <p:dialog widgetVar="BahanCreateDialogWidget" id="BahanCreateDialogWidgetId" 
+                  header="#{bundle.CreateBahanTitle}"
+                  modal="true" showEffect="explode" hideEffect="blind"
+                  closable="true" draggable="false" resizable="false">
+
+            <h:form id="BahanCreateDialogForm" prependId="false">
+                <h:panelGrid columns="2">
+                                        
+                    <h:outputLabel value="#{bundle.CreateBahanLabel_namaBahan}" 
+                                   for="namaBahanCreate" />
+                    <p:inputText id="namaBahanCreate"
+                                 value="#{bahanController.selected.namaBahan}"
+                                 title="#{bundle.CreateBahanTitle_namaBahan}" 
+                                 required="true" requiredMessage="#{bundle.CreateBahanRequiredMessage_namaBahan}">
+                        <f:converter converterId="StringCaseConverter"/>
+                    </p:inputText>
+                        
+                    <h:outputLabel value="#{bundle.CreateBahanLabel_jumlahBahan}" 
+                                   for="jumlahBahanCreate" />
+                    <p:inputText id="jumlahBahanCreate"
+                                 value="#{bahanController.selected.jumlahBahan}"
+                                 title="#{bundle.CreateBahanTitle_jumlahBahan}" 
+                                 required="true" requiredMessage="#{bundle.CreateBahanRequiredMessage_jumlahBahan}"/>
+                    
+                    <h:outputLabel value="#{bundle.CreateBahanLabel_satuanBahan}" 
+                                   for="satuanBahanCreate" />
+                    <p:inputText id="satuanBahanCreate"
+                                 value="#{bahanController.selected.satuanBahan}"
+                                 title="#{bundle.CreateBahanTitle_satuanBahan}"/>
+                    
+                    <h:outputLabel value="#{bundle.CreateBahanLabel_idKategoriBahan}" 
+                                   for="idKategoriBahanCreate" />
+                    <p:selectOneMenu effect="fade" id="idKategoriBahanCreate" 
+                                     value="#{bahanController.selected.idKategoriBahan}" 
+                                     title="#{bundle.CreateBahanTitle_idKategoriBahan}" 
+                                     required="true" requiredMessage="#{bundle.CreateBahanRequiredMessage_idKategoriBahan}">
+                        <f:selectItem itemLabel="Select Bahan" itemValue="" />
+                        <f:selectItems value="#{kategoriBahanController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:commandButton value="#{bundle.CreateBahanSaveLink}" icon="ui-icon-plus"
+                                     action="#{bahanController.create()}"
+                                     update=":messageGrowl :BahanForm:BahanTable"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, BahanCreateDialogWidget, 'BahanCreateDialogWidgetId')" />
+                    <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-cancel" actionListener="#{bahanController.reset()}"
+                                     onclick="BahanCreateDialogWidget.hide();" type="button" />
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
